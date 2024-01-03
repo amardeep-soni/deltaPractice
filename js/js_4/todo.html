@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Console App</title>
+</head>
+
+<body>
+    <h1>TODO Console App</h1>
+
+    <p>Type <strong>quit</strong> to quit console app</p>
+    <p>Type <strong>list</strong> to view list</p>
+    <p>Type <strong>add</strong> to add item to list</p>
+    <p>Type <strong>delete</strong> to delete item from list</p>
+
+
+    <script>
+        let tasks = [];
+        let query = prompt("What do you want to do");
+        while (true) {
+            if (query == 'quit' || query == null) {
+                console.log('Quitting the app');
+                break;
+            }
+
+            if (query == 'list') {
+                console.log('----------');
+                for (let i = 0; i < tasks.length; i++) {
+                    const element = tasks[i];
+                    console.log(i + 1, element);
+                }
+                console.log('----------');
+            } else if (query == 'add') {
+                let item = prompt("Enter your Task:");
+                tasks.push(item)
+                console.log('Your task is added');
+            } else if (query == 'delete') {
+                let itemIndex = prompt("Enter the Task number which you want to delete");
+                console.log('delted', tasks[itemIndex - 1]);
+                tasks.splice(itemIndex - 1, 1);
+            } else {
+                console.log('Wrong Input');
+            }
+            query = prompt("What do you want to do");
+        }
+    </script>
+</body>
+
+</html>
