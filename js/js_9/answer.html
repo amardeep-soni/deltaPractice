@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Part 9</title>
+
+    <style>
+        .btnStyle {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        let body = document.querySelector("body");
+
+        // answer1
+
+        let inputElem = document.createElement("input");
+        let buttonElem = document.createElement("button");
+        buttonElem.innerText = "Click me";
+
+        body.appendChild(inputElem);
+        body.appendChild(buttonElem);
+
+        // answer2
+        inputElem.setAttribute("placeholder", 'username');
+        buttonElem.setAttribute("id", 'btn');
+
+        //answer3
+        let btn = document.querySelector("#btn");
+        btn.classList.add('btnStyle');
+
+        // answer4
+        let h1Elem = document.createElement("h1");
+        h1Elem.innerHTML = "<u>DOM Practice</u>";
+        h1Elem.style.color = "purple";
+        body.prepend(h1Elem);
+
+        // answer5
+        let pElem = document.createElement("p");
+        pElem.innerHTML = "Apna College <strong>Delta</strong> Practice";
+        h1Elem.insertAdjacentElement('afterend', pElem);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script>
+        let container = document.querySelector("#container");
+
+        let newp = document.createElement("p");
+        newp.innerText = "Hey I'm red!";
+        newp.style.color = "red";
+        container.appendChild(newp);
+
+        let newH3 = document.createElement("h3");
+        newH3.innerText = "Hey I'm blue h3!";
+        newH3.style.color = "blue";
+        container.appendChild(newH3);
+
+
+        let newDiv = document.createElement("div");
+        newDiv.style.border = "2px solid black";
+        newDiv.style.backgroundColor = "pink";
+        container.appendChild(newDiv);
+
+        let divH1 = document.createElement("h1");
+        divH1.innerText = "I'm in a div.";
+        newDiv.appendChild(divH1);
+
+        let divP = document.createElement("p");
+        divP.innerText = "ME TOO!";
+        newDiv.appendChild(divP);
+
+    </script>
+</body>
+
+</html>
