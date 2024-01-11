@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer 1</title>
+
+    <style>
+        body {
+            height: 800px;
+            text-align: center;
+        }
+        
+        #box {
+            width: 190px;
+            height: 100px;
+            background-color: blueviolet;
+            color: white;
+            display: grid;
+            place-items: center;
+        }
+
+        div {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">Come Here!</div>
+    <br>
+    <div>
+        <input type="text" placeholder="Enter text to appear in side">
+        <span id="showKeyPress"></span>
+    </div>
+    <br>
+    <br>
+
+
+    <div id="answer2"></div>
+    <br>
+    <br>
+
+    <div id="answer3"></div>
+
+    <script>
+
+        //----------- Answer1 ---------------
+
+        let div = document.querySelector("div");
+
+        // mouseenter and mouseout
+        div.addEventListener("mouseout", () => {
+            div.innerText = "Come Here!";
+        });
+
+        div.addEventListener("mouseenter", () => {
+            div.innerText = "Go Out!";
+        });
+
+        // keypress
+        let input = document.querySelector("input");
+        let keyPressShow = document.querySelector("#showKeyPress");
+        input.addEventListener("keypress", (e) => {
+            keyPressShow.innerText = e.key;
+        });
+
+        // scroll
+        document.addEventListener("scroll", (e) => {
+            console.log('scrolling');
+            console.log(e);
+        });
+
+        // load
+        window.addEventListener("load", (e) => {
+            console.log(e);
+            return false;
+        })
+
+
+        //----------- Answer2 ---------------
+        let answer2 = document.querySelector("#answer2");
+
+        let buttonElem = document.createElement("button");
+        buttonElem.innerText = "Click me"
+        answer2.appendChild(buttonElem);
+        buttonElem.addEventListener("click", () => {
+            buttonElem.style.backgroundColor = 'green'
+        })
+
+
+
+        //----------- Answer3 ---------------
+        let answer3 = document.querySelector("#answer3");
+
+        let inputElem = document.createElement("input");
+        inputElem.placeholder = "enter your name"
+        answer3.appendChild(inputElem);
+
+        let h2Elem = document.createElement("h2");
+        h2Elem.innerText = "Your name will appear here"
+        answer3.prepend(h2Elem);
+
+        inputElem.addEventListener("input", () => { 
+            h2Elem.innerText = inputElem.value;
+        })
+
+    </script>
+</body>
+
+</html>

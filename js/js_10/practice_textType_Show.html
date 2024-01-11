@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Type Show</title>
+</head>
+<body>
+    <h1>Text Type Show</h1>
+    <Textarea placeholder="Type Text here"></Textarea>
+    <p></p>
+
+    <script>
+        let textarea = document.querySelector("textarea");
+        let p = document.querySelector("p");
+        textarea.addEventListener("input", () => {
+            p.innerText = textarea.value;
+        });
+    </script>
+</body>
+</html>

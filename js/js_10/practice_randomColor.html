@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        button {
+            margin: 20px 0;
+        }
+
+        #box {
+            width: 200px;
+            border: 2px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+        #colorBox{
+            border: 1px solid black;
+            width: 100px;
+            height: 40px;
+            margin: 15px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Generate a random color</h1>
+    <button>Generate Color</button>
+    <div id="box">
+        <p>This is your new color</p>
+        <div id="colorBox"></div>
+        <p id="colorValue">rgb(0, 0, 0)</p>
+    </div>
+
+    <script>
+        let btn = document.querySelector("button");
+        let colorBox = document.querySelector("#colorBox");
+        let colorValue = document.querySelector("#colorValue");
+
+        btn.addEventListener("click", changeColor)
+
+        function changeColor() {
+            let red = Math.floor(Math.random() * 255);
+            let green = Math.floor(Math.random() * 255);
+            let blue = Math.floor(Math.random() * 255);
+            var color = `rgb(${red}, ${green}, ${blue})`;
+
+            colorValue.innerText = color;
+            colorBox.style.backgroundColor = color;
+        }
+    </script>
+</body>
+
+</html>
