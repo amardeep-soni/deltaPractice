@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Game</title>
+
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 350px;
+            margin: auto;
+        }
+
+        .box {
+            width: 150px;
+            height: 100px;
+            border-radius: 16px;
+            outline: 1px solid black;
+            margin: 10px;
+            opacity: 0.5;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        #red {
+            background: red;
+        }
+
+        #green {
+            background: green;
+        }
+
+        #yellow {
+            background: yellow;
+        }
+
+        #blue {
+            background: blue;
+        }
+
+        .active {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Simon Game</h1>
+    <p></p>
+    <div class="container">
+        <div class="box" id="red"></div>
+        <div class="box" id="green"></div>
+        <div class="box" id="yellow"></div>
+        <div class="box" id="blue"></div>
+    </div>
+
+
+    <script>
+        let boxes = document.querySelectorAll('.box');
+        let p = document.querySelector('p');
+
+        let count = 0;
+        let random = 0;
+        let playArr = [];
+
+        setTimeout(() => {
+            makeActive();
+        }, 1000);
+
+        for (const box of boxes) {
+            box.addEventListener("click", simonFunction)
+        }
+
+        let playClick = 0;
+        function simonFunction() {
+            this.classList.add("active");
+            setTimeout(() => {
+                this.classList.remove("active");
+
+                var clickId = this.id;
+                console.log(playArr);
+                if (clickId == playArr[playClick]) {
+                    console.log('right');
+                    console.log(playClick);
+                    console.log(count);
+                    if (playClick == count) {
+                        setTimeout(() => {
+                            playClick = 0;
+                            count++;
+                            makeActive();
+                        }, 1500);
+                    } else {
+                        playClick++;
+                    }
+                } else {
+                    p.innerText = "Game is Over Your Score is " + score();
+                }
+            }, 500);
+        }
+
+        // function delay(ms) {
+        //     return new Promise(resolve => setTimeout(resolve, ms));
+        // }
+
+        // async function makeActive() {
+        //     playArr = [];
+
+        //     for (let i = 0; i <= count; i++) {
+        //         const random = Math.floor(Math.random() * 4);
+        //         const box = boxes[random];
+
+        //         box.classList.add("active");
+        //         playArr.push(box.id);
+
+        //         await delay(1000); // Wait for 1000 milliseconds (1 second)
+
+        //         box.classList.remove("active");
+        //         await delay(500); // Adjust the delay as needed
+        //     }
+        // }
+
+        function delay(ms, callback) {
+            setTimeout(callback, ms);
+        }
+
+        function makeActive() {
+            playArr = [];
+            p.innerText = 'Level' + (count + 1);
+
+            function activateBox(index) {
+                const random = Math.floor(Math.random() * 4);
+                const box = boxes[random];
+
+                box.classList.add("active");
+                playArr.push(box.id);
+
+                delay(1000, () => {
+                    box.classList.remove("active");
+                    if (index < count) {
+                        delay(500, () => activateBox(index + 1));
+                    }
+                });
+            }
+
+            activateBox(0);
+        }
+
+        function score() {
+            let sum = 0;
+            for (let i = count; i > 0; i--) {
+                sum += i;
+            }
+            sum + playClick;
+            return sum;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 20px;
+        }
+        ul {
+            margin-top: 10px;
+        }
+        li{
+            list-style-type: none;
+            margin-bottom: 10px;
+        }
+        .deleteBtn {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Todo APP</h1>
+
+    <div>
+        <input type="text" placeholder="Enter your task">
+        <button>Add Task</button>
+    </div>
+    <ul>
+
+    </ul>
+
+
+
+    <script>
+        let input = document.querySelector("input");
+        let button = document.querySelector("button");
+        let ul = document.querySelector("ul");
+
+
+        button.addEventListener("click", () => {
+            let li = document.createElement("li");
+            li.innerText = input.value;
+
+            let deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            deleteButton.className = "deleteBtn";
+            
+            deleteButton.addEventListener("click", deleteFunc);
+
+            li.appendChild(deleteButton);
+            ul.appendChild(li);
+
+            input.value = "";
+        });
+
+        function deleteFunc(event) {
+            let liElement = this.parentElement;
+            ul.removeChild(liElement);
+        }
+    </script>
+</body>
+
+</html>
