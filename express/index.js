@@ -7,22 +7,47 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-app.use((req, res) => {
-  console.log("New incomming request");
-  // console.log(req);
-  
-  res.send("This is string response");
+// it send the response 
 
-  // res.send("<h1>This is html response");
+// app.use((req, res) => {
+//   console.log("New incomming request");
+//   // console.log(req);
 
-  // res.send(['apple', 'orange', 1, 50]);
+//   res.send("This is string response");
 
-  // res.send({
-  //   fruit: 'apple',
-  //   color: "red",
-  // })
+//   // res.send("<h1>This is html response");
 
-  // res.status(404).send('Sorry, we cannot find that!');
-  // res.status(500).send('Internal Server Error!');
-  // res.status(200).send('All thing is working!');
-})
+//   // res.send(['apple', 'orange', 1, 50]);
+
+//   // res.send({
+//   //   fruit: 'apple',
+//   //   color: "red",
+//   // })
+
+//   // res.status(404).send('Sorry, we cannot find that!');
+//   // res.status(500).send('Internal Server Error!');
+//   // res.status(200).send('All thing is working!');
+// })
+
+// sending response with post or get
+app.get("/", (req, res) => {
+  res.send("You contacted Root path");
+});
+
+app.get("/search", (req, res) => {
+  res.send("You contacted Search path");
+});
+
+app.get("/user", (req, res) => {
+  res.send("You contacted User path");
+});
+
+// when no any route matches
+app.get("*", (req, res) => {
+  res.send("Page doesn't exists");
+});
+
+// we can also send post request
+app.post("/", (req, res) => {
+  res.send("You send post request to root path");
+});
