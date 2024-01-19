@@ -55,16 +55,39 @@ app.listen(port, () => {
 
 // getting parameters from path 
 
-app.get("/user", (req, res) => {
-  res.send("Hello")
+// app.get("/user", (req, res) => {
+//   res.send("Hello")
+// })
+
+// app.get("/user/:username", (req, res) => {
+//   let { username } = req.params;
+//   res.send(`Hello, @${username}`)
+// })
+
+// app.get("/user/:username/:id", (req, res) => {
+//   let { username, id } = req.params;
+//   res.send(`Hello, @${username}, your Id is ${id}`)
+// })
+
+
+// search query
+// single query
+// app.get("/search", (req, res) => {
+//   let { q } = req.query;
+//   res.send(`You searched for ${q}`);
+// })
+
+// double query
+app.get("/search2", (req, res) => {
+  let { q, id } = req.query;
+  res.send(`You searched for ${q} and id is ${id}`);
 })
 
-app.get("/user/:username", (req, res) => {
-  let { username } = req.params;
-  res.send(`Hello, @${username}`)
-})
-
-app.get("/user/:username/:id", (req, res) => {
-  let { username, id } = req.params;
-  res.send(`Hello, @${username}, your Id is ${id}`)
+// handling the search quey when query is not send
+app.get("/search", (req, res) => {
+  let { q } = req.query;
+  if (!q) {
+    res.send(`You didnot send query`);
+  }
+  res.send(`You searched for ${q}`);
 })
