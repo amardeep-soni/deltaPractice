@@ -30,24 +30,41 @@ app.listen(port, () => {
 // })
 
 // sending response with post or get
-app.get("/", (req, res) => {
-  res.send("You contacted Root path");
-});
 
-app.get("/search", (req, res) => {
-  res.send("You contacted Search path");
-});
+// app.get("/", (req, res) => {
+//   res.send("You contacted Root path");
+// });
+
+// app.get("/search", (req, res) => {
+//   res.send("You contacted Search path");
+// });
+
+// app.get("/user", (req, res) => {
+//   res.send("You contacted User path");
+// });
+
+// // when no any route matches
+// app.get("*", (req, res) => {
+//   res.send("Page doesn't exists");
+// });
+
+// // we can also send post request
+// app.post("/", (req, res) => {
+//   res.send("You send post request to root path");
+// });
+
+// getting parameters from path 
 
 app.get("/user", (req, res) => {
-  res.send("You contacted User path");
-});
+  res.send("Hello")
+})
 
-// when no any route matches
-app.get("*", (req, res) => {
-  res.send("Page doesn't exists");
-});
+app.get("/user/:username", (req, res) => {
+  let { username } = req.params;
+  res.send(`Hello, @${username}`)
+})
 
-// we can also send post request
-app.post("/", (req, res) => {
-  res.send("You send post request to root path");
-});
+app.get("/user/:username/:id", (req, res) => {
+  let { username, id } = req.params;
+  res.send(`Hello, @${username}, your Id is ${id}`)
+})
