@@ -52,3 +52,16 @@ app.get("/loops", (req, res) => {
     let data = ['apple', 'mango', 'pineaplle']
     res.render("loops.ejs", { data })
 })
+
+app.get("/ig/:username", (req, res) => {
+    let { username } = req.params;
+    let instaData = require("./data.json");
+
+    let data = instaData[username];
+
+    if (data) {
+        res.render("instagram.ejs", { data });
+    } else {
+        res.render("error.ejs")
+    }
+});
