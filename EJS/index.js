@@ -69,3 +69,13 @@ app.get("/ig/:username", (req, res) => {
 app.get("/sections", (req, res) => {
     res.render("sections.ejs")
 })
+
+
+// when we are in same directory
+// app.use(express.static("public")); 
+
+app.use(express.static(path.join(__dirname, "/public")));
+
+app.get("/static", (req, res) => {
+    res.render("static.ejs")
+})
