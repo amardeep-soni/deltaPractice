@@ -42,3 +42,13 @@ app.get("/search", (req, res) => {
     let { q } = req.query;
     res.render("search.ejs", { q })
 })
+
+app.get("/statement/:fruit", (req, res) => {
+    let { fruit } = req.params;
+    res.render("statement.ejs", { fruit })
+})
+
+app.get("/loops", (req, res) => {
+    let data = ['apple', 'mango', 'pineaplle']
+    res.render("loops.ejs", { data })
+})
