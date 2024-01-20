@@ -65,3 +65,7 @@ app.get("/ig/:username", (req, res) => {
         res.render("error.ejs")
     }
 });
+
+app.get("/sections", (req, res) => {
+    res.render("sections.ejs")
+})
