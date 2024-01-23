@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>OOps</h1>
+
+    <script>
+      // factory function for creating objects
+
+      // function makePerson(name, age) {
+      //   let personObj = {
+      //     name: name,
+      //     age: age,
+      //     talk() {
+      //       console.log(`${this.name} You can talk!`);
+      //     },
+      //   };
+      //   return personObj;
+      // }
+
+      // let per1 = makePerson("amar", "20");
+      // let per2 = makePerson("amardeep", "20");
+
+      // console.log(per1);
+      // console.log(per2);
+
+      // console.log(per1.talk == per2.talk);
+
+      // with new keyword
+      // function Person(name, age) {
+      //   this.name = name;
+      //   this.age = age;
+      //   // console.log(this);
+      // }
+
+      // Person.prototype.talk = () => {
+      //   console.log("Say Hello");
+      // };
+
+      // let per1 = new Person("amar", "20");
+      // let per2 = new Person("anup", "24");
+
+      // console.log(per1);
+      // console.log(per2);
+
+      // console.log(per1.talk === per2.talk);
+
+
+      // with class 
+
+      class Person{
+        constructor(name, age){
+          this.name = name;
+          this.age = age;
+        }
+        talk(){
+          console.log("you can talk");
+        }
+      }
+
+      let per1 = new Person("amar", "20");
+      let per2 = new Person("anup", "24");
+
+      console.log(per1);
+      console.log(per2);
+
+      console.log(per1.talk === per2.talk);
+    </script>
+  </body>
+</html>

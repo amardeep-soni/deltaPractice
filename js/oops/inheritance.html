@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inheritance</title>
+  </head>
+  <body>
+    <script>
+      //   class Student {
+      //     constructor(name, age, marks) {
+      //       this.name = name;
+      //       this.age = age;
+      //       this.marks = marks;
+      //     }
+      //     talk(){
+      //         console.log(`Hi my name is ${this.name}`);
+      //     }
+      //   }
+
+      //   class teacher {
+      //     constructor(name, age, subject) {
+      //       this.name = name;
+      //       this.age = age;
+      //       this.subject = subject;
+      //     }
+      //     talk(){
+      //         console.log(`Hi my name is ${this.name}`);
+      //     }
+      //   }
+
+      //   let st1 = new Student("amar", 20, 90);
+      //   let tea = new Student("amardeep", 31, "Angular");
+
+      //   console.log(st1);
+      //   console.log(tea);
+
+      // using inheritance
+
+      class Parent {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        talk() {
+          console.log(`Hi my name is ${this.name}`);
+        }
+      }
+
+      class Student extends Parent {
+        constructor(name, age, marks) {
+          super(name, age);
+          this.marks = marks;
+        }
+      }
+
+      class teacher extends Parent {
+        constructor(name, age, subject) {
+          super(name, age);
+          this.subject = subject;
+        }
+      }
+
+      let st1 = new Student("amar", 20, 90);
+      let tea = new Student("amardeep", 31, "Angular");
+
+      console.log(st1);
+      console.log(tea);
+
+      st1.talk();
+      tea.talk();
+
+      // inheritance 2
+      class Mammal {
+        constructor(name) {
+          this.name = name;
+          this.type = "warm-bloded";
+        }
+        eat() {
+          console.log("I am eating");
+        }
+      }
+
+      class Dog extends Mammal {
+        constructor(name) {
+          super(name);
+        }
+        bark() {
+          console.log("vooo voo...");
+        }
+      }
+
+      class Cat extends Mammal {
+        constructor(name) {
+          super(name);
+        }
+        mewo() {
+          console.log("mewo mewoo...");
+        }
+      }
+
+      let dog1 = new Dog("tom");
+      let cat1 = new Cat("zenny");
+
+      console.log(dog1);
+      console.log(cat1);
+      dog1.bark();
+      cat1.mewo();
+
+
+    </script>
+  </body>
+</html>
