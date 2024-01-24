@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 let posts = []
+let counter = 1;
 
 app.get("/posts", (req, res) => {
     res.render("index.ejs", { posts })
@@ -25,9 +26,17 @@ app.get("/posts/new", (req, res) => {
 // saving form data
 app.post("/posts", (req, res) => {
     let { username, content } = req.body;
-    posts.push({ username, content });
+    posts.push({ id: counter.toString(), username, content });
+    counter++;
     res.redirect("/posts");
     // res.send("added successfully")
+})
+
+// view individual post
+app.get("/posts/:id", (req, res) => {
+    let { id } = req.params;
+    let post = posts.find(p => p.id == id);
+    res.render("show.ejs", { post });
 })
 
 app.listen(port, () => {
