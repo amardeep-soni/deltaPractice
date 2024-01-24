@@ -7,10 +7,13 @@
   </head>
   <body>
     <h1>Edit your post</h1>
-    <form action="http://localhost:3000/posts/<%= post.id %>" method="post">
-      <h3>@<%= post.username %></h3>
+    <form action="http://localhost:3000/posts/<%= post.id %>?_method=PATCH" method="post">
+
+      <h3>Your Id: <%= post.id %></h3>
+      <h3>Your username: @<%= post.username %></h3>
       <textarea name="content" cols="30" rows="10"><%= post.content %></textarea>
       <button>Edit</button>
+      
     </form>
   </body>
 </html>
