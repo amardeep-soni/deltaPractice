@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const path = require("path");
+const { v4: uuidv4 } = require('uuid');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -12,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 let posts = []
-let counter = 1;
+// let counter = 1;
 
 app.get("/posts", (req, res) => {
     res.render("index.ejs", { posts })
@@ -23,11 +24,12 @@ app.get("/posts/new", (req, res) => {
     res.render("new.ejs");
 });
 
-// saving form data
+// saving form data with unique id
 app.post("/posts", (req, res) => {
     let { username, content } = req.body;
-    posts.push({ id: counter.toString(), username, content });
-    counter++;
+    let id = uuidv4(); // generates unique id
+    posts.push({ id, username, content });
+    // counter++;
     res.redirect("/posts");
     // res.send("added successfully")
 })
