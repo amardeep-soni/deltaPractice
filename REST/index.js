@@ -39,6 +39,22 @@ app.get("/posts/:id", (req, res) => {
     let { id } = req.params;
     let post = posts.find(p => p.id == id);
     res.render("show.ejs", { post });
+});
+
+// get edit form
+app.get("/posts/:id/edit", (req, res) => {
+    let { id } = req.params;
+    let post = posts.find(p => p.id == id);
+    res.render("edit.ejs", { post });
+})
+
+// edit the form
+app.post("/posts/:id", (req, res) => {
+    let { id } = req.params;
+    let newContent = req.body.content;
+    let post = posts.find(p => p.id == id);
+    post.content = newContent;
+    res.redirect("/posts");
 })
 
 app.listen(port, () => {
