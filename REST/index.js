@@ -26,7 +26,8 @@ app.get("/posts/new", (req, res) => {
 app.post("/posts", (req, res) => {
     let { username, content } = req.body;
     posts.push({ username, content });
-    res.send("added successfully")
+    res.redirect("/posts");
+    // res.send("added successfully")
 })
 
 app.listen(port, () => {
