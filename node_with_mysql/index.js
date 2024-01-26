@@ -9,8 +9,16 @@ const connection = mysql.createConnection({
 })
 connection.connect();
 
+let query = 
+`CREATE TABLE users (
+    id VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL
+)`;
+
 try {
-    connection.query("SHOW TABLES", (err, result) => {
+    connection.query(query, (err, result) => {
         if (err) throw err;
         console.log(result);
     });
