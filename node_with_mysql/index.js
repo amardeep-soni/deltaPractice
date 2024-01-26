@@ -9,16 +9,20 @@ const connection = mysql.createConnection({
 })
 connection.connect();
 
-let query = 
-`CREATE TABLE users (
-    id VARCHAR(50) PRIMARY KEY,
-    username VARCHAR(50) UNIQUE,
-    email VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(50) NOT NULL
-)`;
+//  to create table
+// let query = 
+// `CREATE TABLE users (
+//     id VARCHAR(50) PRIMARY KEY,
+//     username VARCHAR(50) UNIQUE,
+//     email VARCHAR(50) UNIQUE NOT NULL,
+//     password VARCHAR(50) NOT NULL
+// )`;
+
+let query = 'INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)';
+let user = ["123", "amar", "amar@gmail.com", "amar"];
 
 try {
-    connection.query(query, (err, result) => {
+    connection.query(query, user, (err, result) => {
         if (err) throw err;
         console.log(result);
     });
