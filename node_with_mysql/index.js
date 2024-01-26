@@ -1,4 +1,24 @@
 const { faker } = require('@faker-js/faker');
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'delta_app',
+    password: 'Shriom'
+})
+connection.connect();
+
+try {
+    connection.query("SHOW TABLES", (err, result) => {
+        if (err) throw err;
+        console.log(result);
+    });
+} catch (err) {
+    console.log(err);
+}
+
+connection.end();
 
 const getRandomUser = () => {
     return {
@@ -9,4 +29,4 @@ const getRandomUser = () => {
     };
 };
 
-console.log(getRandomUser());
+// console.log(getRandomUser());
