@@ -18,11 +18,19 @@ connection.connect();
 //     password VARCHAR(50) NOT NULL
 // )`;
 
-let query = 'INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)';
-let user = ["123", "amar", "amar@gmail.com", "amar"];
+//  to insert single data
+// let query = 'INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)';
+// let user = ["123", "amar", "amar@gmail.com", "amar"];
+
+//  to insert multiple data
+let query = 'INSERT INTO users (id, username, email, password) VALUES ?';
+let users = [
+    ["124", "anup", "anup@gmail.com", "anup"],
+    ["125", "deep", "deep@gmail.com", "deep"],
+];
 
 try {
-    connection.query(query, user, (err, result) => {
+    connection.query(query, [users], (err, result) => {
         if (err) throw err;
         console.log(result);
     });
