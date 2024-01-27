@@ -21,7 +21,7 @@
             <th>Username</th>
             <th>email</th>
             <th>Password</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </thead>
         <tbody>
             <% for(item of data) { %>
@@ -34,6 +34,12 @@
                     <form action="http://localhost:3000/user/<%= item.id %>/edit" method="get">
                         <button>Edit username</button>
                     </form>
+                </td>
+                <td> 
+                    <form action="http://localhost:3000/user/<%= item.id %>/delete" method="get">
+                        <button>Delete</button>
+                    </form>
+                </td>
             </tr>
             <% } %>
         </tbody>

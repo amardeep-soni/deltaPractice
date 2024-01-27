@@ -99,7 +99,7 @@ app.get("/user/new", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-    let {email, username, password} = req.body;
+    let { email, username, password } = req.body;
     let id = uuidv4();
     let query = `INSERT INTO users (id, email, username, password) VALUES (?, ?, ?, ?)`;
     let datas = [id, email, username, password]
@@ -107,6 +107,50 @@ app.post("/user", (req, res) => {
         connection.query(query, datas, (err, result) => {
             if (err) throw err;
             res.redirect("/user")
+        });
+    } catch (err) {
+        console.log(err);
+        res.send("Something error occured in DB");
+    }
+})
+
+app.get("/user/:id/delete", (req, res) => {
+    let { id } = req.params;
+    let query = `Select  * FROM users WHERE id = '${id}'`;
+    try {
+        connection.query(query, (err, result) => {
+            if (err) throw err;
+            let user = result[0];
+            res.render("delete.ejs", { user });
+        });
+    } catch (err) {
+        console.log(err);
+        res.send("Something error occured in DB");
+    }
+})
+
+app.delete("/user/:id", (req, res) => {
+    let { password } = req.body;
+    let { id } = req.params;
+
+    let query = `Select  * FROM users WHERE id = '${id}'`;
+    try {
+        connection.query(query, (err, result) => {
+            if (err) throw err;
+            let user = result[0];
+            if (password == user.password) {
+                try {
+                    query = `DELETE FROM users WHERE id = '${id}'`;
+                    connection.query(query, (err, result) => {
+                        if (err) throw err;
+                        res.redirect("/user")
+                    })
+                } catch (err) {
+                    res.send("Something error occured in DB");
+                }
+            } else {
+                res.send("Password is wrong");
+            }
         });
     } catch (err) {
         console.log(err);
