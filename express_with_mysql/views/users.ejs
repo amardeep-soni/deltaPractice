@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>users</title>
+    <style>
+        table, tr, td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Username</th>
+            <th>email</th>
+            <th>Password</th>
+        </thead>
+        <tbody>
+            <% for(item of data) { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.username %></td>
+                <td><%= item.email %></td>
+                <td><%= item.password %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>

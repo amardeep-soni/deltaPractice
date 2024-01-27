@@ -32,6 +32,20 @@ app.get("/", (req, res) => {
     }
 });
 
+app.get("/user", (req, res) => {
+    let query = `SELECT * FROM users`;
+    try {
+        connection.query(query, (err, result) => {
+            if (err) throw err;
+            let data = result;
+            res.render("users.ejs", { data });
+        });
+    } catch (err) {
+        console.log(err);
+        res.send("Something error occured in DB");
+    }
+});
+
 
 // connection.end();
 
