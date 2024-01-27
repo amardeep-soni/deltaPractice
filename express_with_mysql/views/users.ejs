@@ -17,6 +17,7 @@
             <th>Username</th>
             <th>email</th>
             <th>Password</th>
+            <th>Action</th>
         </thead>
         <tbody>
             <% for(item of data) { %>
@@ -25,6 +26,10 @@
                 <td><%= item.username %></td>
                 <td><%= item.email %></td>
                 <td><%= item.password %></td>
+                <td> 
+                    <form action="http://localhost:3000/user/<%= item.id %>/edit" method="get">
+                        <button>Edit username</button>
+                    </form>
             </tr>
             <% } %>
         </tbody>
