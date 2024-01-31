@@ -74,3 +74,39 @@ const User = mongoose.model("User", userSchema);
 //   })
 //   .catch((err) => console.log(err));
 
+
+// update
+// User.updateOne({name: "joy"}, {age: 20})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// User.updateMany({age: {$gte: 20}}, {age: 45})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// it find one document and update it and return the original document rather than updated document
+
+// User.findOneAndUpdate({name: "joy"}, {age: 23})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+//  doest the same but only return the modified document
+// User.findOneAndUpdate({name: "joy"}, {age: 51}, {new: true})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// it update the document matching with id
+// User.findByIdAndUpdate("65b8bdd3fa20a80dbc290542", {age: 60}, {new: true})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
