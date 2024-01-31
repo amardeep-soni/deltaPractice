@@ -110,3 +110,33 @@ const User = mongoose.model("User", userSchema);
 //   })
 //   .catch((err) => console.log(err));
 
+// delete
+
+// delte one document
+
+// User.deleteOne({name: "anup"})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// delete many
+// User.deleteMany({age: {$gt: 70}})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// delete by name and return the deleted document
+// User.findOneAndDelete({name: "joy"})
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// delete by id and return the deleted document
+User.findByIdAndDelete("65b8bc01c81809d97c53e58a")
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => console.log(err));
