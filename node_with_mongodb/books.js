@@ -23,6 +23,7 @@ const bookSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
+    min: 5,
   },
   discount: {
     type: Number,
@@ -109,7 +110,21 @@ const Book = mongoose.model("Book", bookSchema);
 //   price: "500",
 // });
 
-book1
-  .save()
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+// book1
+//   .save()
+//   .then((res) => console.log(res))
+//   .catch((err) => console.log(err));
+
+
+// working validators with update (as when we not set to true for runValidators our validation will not work)
+// Book.findByIdAndUpdate(
+//   "65bb6af7da08d4b399a8e424",
+//   { price: -500 },
+//   { runValidators: true }
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
