@@ -23,7 +23,7 @@ const bookSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    min: 5,
+    min: [5, 'Price should not be less than 5'],
   },
   discount: {
     type: Number,
@@ -37,6 +37,25 @@ const bookSchema = new mongoose.Schema({
 });
 
 const Book = mongoose.model("Book", bookSchema);
+
+// showing validation error nicely
+let book1 = new Book({
+  title: "this is title",
+  author: "Amar",
+  price: -500,
+  discount: 5,
+  category: ["physic", "engineering"],
+  language: "Hindi",
+});
+
+book1.save()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err.errors.price.properties.message);
+  });
+
 
 // we can only use language provided not other
 // let book1 = new Book({
@@ -114,7 +133,6 @@ const Book = mongoose.model("Book", bookSchema);
 //   .save()
 //   .then((res) => console.log(res))
 //   .catch((err) => console.log(err));
-
 
 // working validators with update (as when we not set to true for runValidators our validation will not work)
 // Book.findByIdAndUpdate(
