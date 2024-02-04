@@ -34,10 +34,12 @@ app.get("/chats", async (req, res) => {
   res.render("index.ejs", { allChats });
 });
 
+// add form route
 app.get("/chats/new", (req, res) => {
   res.render("new.ejs");
 });
 
+// add route
 app.post("/chats", (req, res) => {
   let { from, msg, to } = req.body;
   const newChat = new Chat({
@@ -48,12 +50,14 @@ app.post("/chats", (req, res) => {
   });
 });
 
+// edit form route
 app.get("/chats/:id/edit", async (req, res) => {
   let { id } = req.params;
   let chat = await Chat.findById(id);
   res.render("edit.ejs", { chat });
 });
 
+// edit route
 app.put("/chats/:id", async (req, res) => {
   let { msg: newMsg } = req.body;
   // msg came from body and we store that in newMsg
@@ -61,10 +65,18 @@ app.put("/chats/:id", async (req, res) => {
   let updatedChat = await Chat.findByIdAndUpdate(
     id,
     { msg: newMsg },
-    { runValidators: true, new: true }, // for running validation check
+    { runValidators: true, new: true } // for running validation check
     // for giving the updated document
   );
   console.log(updatedChat);
+  res.redirect("/chats");
+});
+
+// destroy route
+app.delete("/chats/:id", async (req, res) => {
+  let { id } = req.params;
+  let deletedChat = await Chat.findByIdAndDelete(id);
+  console.log(deletedChat);
   res.redirect("/chats");
 });
 
