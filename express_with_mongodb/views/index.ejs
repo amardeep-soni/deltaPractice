@@ -8,6 +8,12 @@
   </head>
   <body>
     <h1>All Chats</h1>
+
+    <form action="http://localhost:3000/chats/new" method="get">
+      <button>Add Chat</button>
+    </form>
+    
+    <br />
     <% for(chat of allChats) { %>
     <div class="chat">
       <p>From: <i><%= chat.from %></i></p>
