@@ -4,12 +4,14 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const Chat = require("./models/chat.js");
+var methodOverride = require("method-override");
 
 app.set("viws", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 main()
   .then(() => {
@@ -42,15 +44,28 @@ app.post("/chats", (req, res) => {
     from: from,
     msg: msg,
     to: to,
-    created_at: new Date()
+    created_at: new Date(),
   });
+});
 
-  newChat
-    .save()
-    .then((res2) => {
-      res.redirect("/chats");
-    })
-    .catch((err) => console.log(err));
+app.get("/chats/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  let chat = await Chat.findById(id);
+  res.render("edit.ejs", { chat });
+});
+
+app.put("/chats/:id", async (req, res) => {
+  let { msg: newMsg } = req.body;
+  // msg came from body and we store that in newMsg
+  let { id } = req.params;
+  let updatedChat = await Chat.findByIdAndUpdate(
+    id,
+    { msg: newMsg },
+    { runValidators: true, new: true }, // for running validation check
+    // for giving the updated document
+  );
+  console.log(updatedChat);
+  res.redirect("/chats");
 });
 
 app.listen(3000, () => {
