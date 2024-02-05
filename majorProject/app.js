@@ -3,6 +3,7 @@ var app = express();
 var mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
+const methodOverride = require("method-override");
 
 const MONGO_URL = "mongodb://127.0.0.1/wonderlust";
 
@@ -19,6 +20,7 @@ async function main() {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.send("I am root");
@@ -49,7 +51,21 @@ app.post("/listings", async (req, res) => {
   // req.body.listing --- it will give object and we pass this object in creating instance of Listing
   let newListing = new Listing(req.body.listing);
   await newListing.save();
-  res.redirect("/listings")
+  res.redirect("/listings");
+});
+
+// edit form route
+app.get("/listings/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  res.render("listings/edit.ejs", { listing });
+});
+
+// update route
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  res.redirect(`/listings/${id}`);
 });
 
 app.listen(3000, () => {
