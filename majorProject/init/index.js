@@ -1,7 +1,6 @@
-var express = require("express");
-var app = express();
 var mongoose = require("mongoose");
-const Listing = require("../models/listing.js");
+var initData = require("./data.js");
+var Listing = require("../models/listing.js");
 
 const MONGO_URL = "mongodb://127.0.0.1/wonderlust";
 
@@ -15,11 +14,9 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-app.get('/', (req, res) => {
-    res.send("I am root")
-});
-
-
-app.listen(3000, () => {
-  console.log(`Server is listening to port 3000`);
-});
+const initDB = async () => {
+  await Listing.deleteMany({});
+  await Listing.insertMany(initData.data);
+  console.log("Data was initialized");
+};
+initDB();
