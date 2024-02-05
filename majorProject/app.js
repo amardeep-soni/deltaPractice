@@ -29,6 +29,13 @@ app.get("/listings", async (req, res) => {
   res.render("listings/index.ejs", { listings });
 });
 
+// show route
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  res.render("listings/show.ejs", { listing });
+});
+
 app.listen(3000, () => {
   console.log(`Server is listening to port 3000`);
 });
