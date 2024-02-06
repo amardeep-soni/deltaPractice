@@ -99,3 +99,10 @@ body {
     border: none;
     color: white;
 }
+
+/* edit page */
+.edit-btn {
+    background-color: #fe424d;
+    border: none;
+    color: white;
+}
