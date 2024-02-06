@@ -1,40 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wonderlust</title>
-  </head>
-  <body>
-    <h1>Add new Listing</h1>
-    <form action="/listings" method="post">
-      <input type="text" placeholder="Enter title" name="listing[title]" />
-      <br /><br />
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h1>Add new Listing</h1>
+  <form action="/listings" method="post">
+    <input type="text" placeholder="Enter title" name="listing[title]" />
+    <br /><br />
 
-      <textarea
-        type="text"
-        placeholder="Enter description"
-        name="listing[description]"
-      ></textarea>
-      <br /><br />
+    <textarea
+      type="text"
+      placeholder="Enter description"
+      name="listing[description]"
+    ></textarea>
+    <br /><br />
 
-      <input type="text" placeholder="Enter Image url" name="listing[image]" />
-      <br /><br />
+    <input type="text" placeholder="Enter Image url" name="listing[image]" />
+    <br /><br />
 
-      <input type="number" placeholder="Enter Price" name="listing[price]" />
-      <br /><br />
+    <input type="number" placeholder="Enter Price" name="listing[price]" />
+    <br /><br />
 
-      <input
-        type="text"
-        placeholder="Enter location"
-        name="listing[location]"
-      />
-      <br /><br />
+    <input type="text" placeholder="Enter location" name="listing[location]" />
+    <br /><br />
 
-      <input type="text" placeholder="Enter country" name="listing[country]" />
-      <br /><br />
+    <input type="text" placeholder="Enter country" name="listing[country]" />
+    <br /><br />
 
-      <button>Save</button>
-    </form>
-  </body>
-</html>
+    <button>Save</button>
+  </form>
+</body>
