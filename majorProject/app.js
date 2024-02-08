@@ -32,6 +32,17 @@ app.get("/", (req, res) => {
   res.send("I am root");
 });
 
+// middleware for schema validation handling
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(", ");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
 //  index route
 app.get(
   "/listings",
@@ -62,6 +73,7 @@ app.get(
 // create route
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
     // let { title, description, image, price, location, country } = req.body; -- when we use Listing[name] then we don't need to write this much
 
@@ -71,10 +83,10 @@ app.post(
     // }
 
     // throwing schema validation error with joy
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
+    // let result = listingSchema.validate(req.body);
+    // if (result.error) {
+    //   throw new ExpressError(400, result.error);
+    // }
     let newListing = new Listing(req.body.listing);
 
     // sending individual schema error is is not nicely
@@ -102,15 +114,16 @@ app.get(
 // update route
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     // if (!req.body.listing) {
     //   next(new ExpressError(400, "Bad Request! Send form data"));
     // }
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
+    // let result = listingSchema.validate(req.body);
+    // if (result.error) {
+    //   throw new ExpressError(400, result.error);
+    // }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
   })
