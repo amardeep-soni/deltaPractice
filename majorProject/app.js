@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const wrapAsync = require("./utils/wrapAsync.js");
+const { listingSchema } = require("./schema.js");
 
 const MONGO_URL = "mongodb://127.0.0.1/wonderlust";
 
@@ -65,10 +66,24 @@ app.post(
     // let { title, description, image, price, location, country } = req.body; -- when we use Listing[name] then we don't need to write this much
 
     // req.body.listing --- it will give object and we pass this object in creating instance of Listing
-    if (!req.body.listing) {
-      next(new ExpressError(400, "Bad Request! Send form data"));
+    // if (!req.body.listing) {
+    //   next(new ExpressError(400, "Bad Request! Send form data"));
+    // }
+
+    // throwing schema validation error with joy
+    let result = listingSchema.validate(req.body);
+    if (result.error) {
+      throw new ExpressError(400, result.error);
     }
     let newListing = new Listing(req.body.listing);
+
+    // sending individual schema error is is not nicely
+    // if (!newListing.description) {
+    //   next(new ExpressError(400, "Description not send"));
+    // }
+    // if (!newListing.title) {
+    //   next(new ExpressError(400, "Description not send"));
+    // }
     await newListing.save();
     res.redirect("/listings");
   })
@@ -89,8 +104,12 @@ app.put(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    if (!req.body.listing) {
-      next(new ExpressError(400, "Bad Request! Send form data"));
+    // if (!req.body.listing) {
+    //   next(new ExpressError(400, "Bad Request! Send form data"));
+    // }
+    let result = listingSchema.validate(req.body);
+    if (result.error) {
+      throw new ExpressError(400, result.error);
     }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
