@@ -1,16 +1,14 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
     <div class="row mt-3">
-        <div class="col-8 offset-3">
-            <h3>Listing Details</h3>
+        <div class="col-8 offset-3 ps-0">
+            <h3>
+                <%= listing.title %>
+            </h3>
         </div>
         <div class="card col-6 offset-3 show-card">
             <img src=<%=listing.image %> class="card-img-top show-img" alt="Listing image">
             <div class="card-body">
-                <p class="card-text">
-                    <strong>
-                        <%= listing.title %>
-                    </strong>
                 <p class="mb-2">
                     <%= listing.description %>
                 </p>
@@ -22,7 +20,6 @@
                 </p>
                 <p class="mb-0">
                     <%= listing.country %>
-                </p>
                 </p>
             </div>
             <div class="btns mt-3">
