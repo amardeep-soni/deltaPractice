@@ -8,6 +8,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const { listingSchema } = require("./schema.js");
+const Review = require("./models/review.js");
 
 const MONGO_URL = "mongodb://127.0.0.1/wonderlust";
 
@@ -138,6 +139,19 @@ app.delete(
     res.redirect("/listings");
   })
 );
+
+// Reviews
+// Post Route
+app.post("/listings/:id/reviews", async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
+
+  res.redirect(`/listings/${listing._id}`);
+});
 
 // when no any route matches
 app.all("*", (req, res, next) => {
