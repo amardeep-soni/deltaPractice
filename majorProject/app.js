@@ -10,6 +10,8 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 
+const listings = require("./routes/listings.js");
+
 const MONGO_URL = "mongodb://127.0.0.1/wonderlust";
 
 main()
@@ -33,16 +35,7 @@ app.get("/", (req, res) => {
   res.send("I am root");
 });
 
-// middleware for schema validation handling
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(", ");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
+app.use("/listings", listings);
 
 const validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
@@ -53,102 +46,6 @@ const validateReview = (req, res, next) => {
     next();
   }
 };
-
-//  index route
-app.get(
-  "/listings",
-  wrapAsync(async (req, res) => {
-    let listings = await Listing.find();
-    res.render("listings/index.ejs", { listings });
-  })
-);
-
-// new form route
-app.get(
-  "/listings/new",
-  wrapAsync(async (req, res) => {
-    res.render("listings/new.ejs");
-  })
-);
-
-// show route
-app.get(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { listing });
-  })
-);
-
-// create route
-app.post(
-  "/listings",
-  validateListing,
-  wrapAsync(async (req, res, next) => {
-    // let { title, description, image, price, location, country } = req.body; -- when we use Listing[name] then we don't need to write this much
-
-    // req.body.listing --- it will give object and we pass this object in creating instance of Listing
-    // if (!req.body.listing) {
-    //   next(new ExpressError(400, "Bad Request! Send form data"));
-    // }
-
-    // throwing schema validation error with joy
-    // let result = listingSchema.validate(req.body);
-    // if (result.error) {
-    //   throw new ExpressError(400, result.error);
-    // }
-    let newListing = new Listing(req.body.listing);
-
-    // sending individual schema error is is not nicely
-    // if (!newListing.description) {
-    //   next(new ExpressError(400, "Description not send"));
-    // }
-    // if (!newListing.title) {
-    //   next(new ExpressError(400, "Description not send"));
-    // }
-    await newListing.save();
-    res.redirect("/listings");
-  })
-);
-
-// edit form route
-app.get(
-  "/listings/:id/edit",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render("listings/edit.ejs", { listing });
-  })
-);
-
-// update route
-app.put(
-  "/listings/:id",
-  validateListing,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    // if (!req.body.listing) {
-    //   next(new ExpressError(400, "Bad Request! Send form data"));
-    // }
-    // let result = listingSchema.validate(req.body);
-    // if (result.error) {
-    //   throw new ExpressError(400, result.error);
-    // }
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-// delete route
-app.delete(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-  })
-);
 
 // Reviews
 // Review Post Route
@@ -175,7 +72,7 @@ app.delete(
 
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    
+
     res.redirect(`/listings/${id}`);
   })
 );
