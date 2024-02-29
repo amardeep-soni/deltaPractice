@@ -12,20 +12,17 @@ let sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.successMsg = req.flash("success");
+  res.locals.errorMsg = req.flash("error");
+  next();
+});
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
 app.get("/test", (req, res) => {
   res.send("test successfull");
-});
-
-app.get("/reqcount", (req, res) => {
-  if (req.session.count) {
-    req.session.count++;
-  } else {
-    req.session.count = 1;
-  }
-  res.send(`You sent request ${req.session.count} times.`);
 });
 
 app.get("/register", (req, res) => {
@@ -41,11 +38,7 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.locals.successMsg = req.flash("success");
-  res.locals.errorMsg = req.flash("error");
-  res.render("welcome.ejs", {
-    name: req.session.name,
-  });
+  res.render("welcome.ejs", { name: req.session.name });
 });
 
 app.listen(8080, () => {
