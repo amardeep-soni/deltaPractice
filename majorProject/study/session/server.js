@@ -22,6 +22,15 @@ app.get("/reqcount", (req, res) => {
   res.send(`You sent request ${req.session.count} times.`);
 });
 
+app.get("/register", (req, res) => {
+  let { name = "anonymous" } = req.query;
+  req.session.name = name;
+  res.send("You registered");
+});
+app.get("/hello", (req, res) => {
+  res.send(`hello, ${req.session.name}`);
+});
+
 app.listen(8080, () => {
   console.log("server listening on port 8080");
 });
