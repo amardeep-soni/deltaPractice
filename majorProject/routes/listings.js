@@ -69,6 +69,7 @@ router.post(
     // if (!newListing.title) {
     //   next(new ExpressError(400, "Description not send"));
     // }
+    req.flash("success", "New listing Created!");
     await newListing.save();
     res.redirect("/listings");
   })
@@ -98,6 +99,7 @@ router.put(
     //   throw new ExpressError(400, result.error);
     // }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -108,6 +110,7 @@ router.delete(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("success", "Listing deleted!");
     res.redirect("/listings");
   })
 );
